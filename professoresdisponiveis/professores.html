@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Todos os Professores</title>
+        <link rel="stylesheet" type="text/css" href="estilo.css" />
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script
+            src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
+            crossorigin="anonymous"
+        ></script>
+        <!-- Google fonts-->
+        <link
+            href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../css/styles.css" rel="stylesheet" />
+    </head>
+
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand" href="../index.html">
+                    <i
+                        class="fa-sharp fa-solid fa-graduation-cap"
+                        style="font-size: 3em"
+                    ></i>
+                </a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarResponsive"
+                    aria-controls="navbarResponsive"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    Menu
+                    <i class="fas fa-bars ms-1"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html"
+                                >Sobre nós</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html"
+                                >Categorias</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html"
+                                >Professores</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="">Agende seu Horário</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../login/login.html"
+                                >Login/Cadastro</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="filtro">
+            <label for="filtro-select">Filtrar por:</label>
+            <select id="filtro-select" onchange="filtrarProfessor(this)">
+                <option value="todos">Todos</option>
+                <option value="matematica">Matemática</option>
+                <option value="portugues">Português</option>
+                <option value="historia">História</option>
+                <option value="quimica">Quimica</option>
+            </select>
+        </div>
+
+        <div id="professores">
+            <!-- <div class="retangulo" >
+				<img src="teste.jpg" alt="Foto do Professor 1" class="foto">
+				<h2>Professor 1</h2>
+				<p>Idade: 35 anos</p>
+				<p>Formação: Doutorado em Matemática</p>
+				<p>Experiência: 10 anos de docência em universidades renomadas</p>
+			</div> -->
+        </div>
+    </body>
+    <script>
+        const container = document.querySelector('#professores');
+
+        // Array com informações dos professores
+        const data_professores = [
+            {
+                nome: 'Ginevra Molly',
+                idade: 30,
+                formacao: 'Matemática',
+                formacaoNormalizada: 'matematica',
+                experiencia: '10 anos de docência em universidades renomadas',
+                foto: 'teste.jpg'
+            },
+            {
+                nome: 'Bartô Crouch',
+                idade: 60,
+                formacao: 'Física',
+                formacaoNormalizada: 'fisica',
+                experiencia: '15 anos de docência em universidades renomadas',
+                foto: 'teste2.jpg'
+            },
+            {
+                nome: 'Severo Snape',
+                idade: 40,
+                formacao: 'Química',
+                formacaoNormalizada: 'quimica',
+                experiencia: '20 anos de docência em universidades renomadas',
+                foto: 'teste3.jpg'
+            },
+            {
+                nome: 'Horácio Slughorn',
+                idade: 63,
+                formacao: 'Química',
+                formacaoNormalizada: 'quimica',
+                experiencia: '20 anos de docência em universidades renomadas',
+                foto: 'teste4.png'
+            },
+            {
+                nome: 'Remo Lupin',
+                idade: 35,
+                formacao: 'Português',
+                formacaoNormalizada: 'portugues',
+                experiencia: '20 anos de docência em universidades renomadas',
+                foto: 'teste5.jpg'
+            }
+        ];
+        var professores = data_professores;
+
+        function mensagemVazio() {
+            const div = document.createElement('div');
+            div.textContent = 'Nenhum professor encontrado.';
+            container.appendChild(div);
+        }
+
+        function criarCardProfessor(professor) {
+            const div = document.createElement('div');
+            div.classList.add('retangulo');
+            container.appendChild(div);
+
+            // Criar o elemento img com atributo src e alt e adicionar à div
+            const img = document.createElement('img');
+            img.src = professor.foto;
+            img.alt = `Foto do ${professor.nome}`;
+            img.classList.add('foto');
+            img.style.width = '200px';
+            img.style.height = '250px';
+            div.appendChild(img);
+
+            // Criar o elemento h2 com o nome do professor e adicionar à div
+            const h2 = document.createElement('h2');
+            h2.textContent = professor.nome;
+            div.appendChild(h2);
+
+            // Criar os elementos p com as informações do professor e adicionar à div
+            const p1 = document.createElement('p');
+            p1.textContent = `Idade: ${professor.idade} anos`;
+            div.appendChild(p1);
+
+            const p2 = document.createElement('p');
+            p2.textContent = `Formação: ${professor.formacao}`;
+            div.appendChild(p2);
+
+            const p3 = document.createElement('p');
+            p3.textContent = `Experiência: ${professor.experiencia}`;
+            div.appendChild(p3);
+        }
+
+        filtrarProfessor({ value: 'todos' });
+
+        function filtrarProfessor(e) {
+            //Seta variavel professores com lista com TODOS os professores
+            professores = data_professores;
+
+            //Remove os cards dos professores
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+
+            //Se o valor for 'todos' retorna todos os professores
+            if (e.value == 'todos') {
+                for (let i = 0; i < professores.length; i++) {
+                    criarCardProfessor(professores[i]);
+                }
+                return;
+            }
+
+            //Filtra os professores de acordo com o valor do filtro 'e.value'
+            professores = professores.filter(
+                (professor) => professor.formacaoNormalizada == e.value
+            );
+
+            //Verifica se o filtro encontrou algum professor
+            if (professores.length > 0) {
+                //Se encontrar cria os cards dos professores
+                for (let i = 0; i < professores.length; i++) {
+                    criarCardProfessor(professores[i]);
+                }
+            } else {
+                //Senão retorna mensagem de vazio
+                mensagemVazio();
+            }
+        }
+    </script>
+</html>
